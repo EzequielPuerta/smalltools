@@ -1,6 +1,5 @@
-from abc import ABC
 from unittest import TestCase
-from src.smalltools.behavior.suitable_class_finder import is_concrete, concrete_subclasses, SuitableClassFinder
+from src.smalltools_st.behavior.suitable_class_finder import is_concrete, concrete_subclasses, SuitableClassFinder
 from .utils import *
 
 

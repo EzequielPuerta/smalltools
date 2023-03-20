@@ -1,4 +1,4 @@
-# smalltools
+# smalltools_st
 A Python port with a few small tools, snippets and utils (with a lot of WIP) learned in my times as a Smalltalk developer and which I miss a lot.
 
 ---
@@ -38,7 +38,7 @@ And we are consuming some silly API. The response could be something like:
 vehicles = [
     {'type':'car', 'doors':5, 'motor':1400, 'brand':'renault', 'color':'red'},
     {'type':'bike', 'doors':0, 'motor':0, 'brand':'trek', 'color':'orange'},
-    {'type':'motorbike', 'doors':0, 'motor:250, 'brand':'yamaha', 'color':'black'},
+    {'type':'motorbike', 'doors':0, 'motor':250, 'brand':'yamaha', 'color':'black'},
     {'type':'car', 'doors':3, 'motor':1200, 'brand':'volkswagen', 'color':'white'},
     ...
 ]
@@ -68,7 +68,7 @@ But, what if the API response is not so easy?
 vehicles = [
     {'doors':5, 'motor':1400, 'brand':'renault', 'color':'red'},
     {'doors':0, 'motor':0, 'brand':'trek', 'color':'orange'},
-    {'doors':0, 'motor:250, 'brand':'yamaha', 'color':'black'},
+    {'doors':0, 'motor':250, 'brand':'yamaha', 'color':'black'},
     {'doors':3, 'motor':1200, 'brand':'volkswagen', 'color':'white'},
     ...
 ]
@@ -124,7 +124,7 @@ Okey, and if you have objects with different "shapes"?
 vehicles = [
     {'doors':5, 'motor':1400, 'brand':'renault', 'color':'red'},
     {'brand':'trek', 'color':'orange'},
-    {'motor:250, 'brand':'yamaha', 'color':'black'},
+    {'motor':250, 'brand':'yamaha', 'color':'black'},
     {'doors':3, 'motor':1200, 'brand':'volkswagen', 'color':'white'},
     ...
 ]
