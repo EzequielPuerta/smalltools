@@ -28,7 +28,7 @@ class Car(Vehicle):
 class Bike(Vehicle):
     pass
 
-class Motorkbike(Vehicle):
+class Motorbike(Vehicle):
     pass
 ```
 
@@ -103,7 +103,7 @@ class Bike(Vehicle):
     def can_handle(cls, doors, motor):
         return doors == 0 and motor == 0
 
-class Motorkbike(Vehicle):
+class Motorbike(Vehicle):
     @classmethod
     def can_handle(cls, doors, motor):
         return doors == 0 and motor > 0
@@ -159,7 +159,7 @@ class Bike(Vehicle):
     def can_handle(cls, raw_json):
         return 'doors' not in raw_json and 'motor' not in raw_json
 
-class Motorkbike(Vehicle):
+class Motorbike(Vehicle):
     @classmethod
     def can_handle(cls, raw_json):
         return 'doors' not in raw_json and 'motor' in raw_json and raw_json['motor'] > 0
