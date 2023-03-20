@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "smalltools"
+version = "0.0.1"
+authors = [
+  { name="Armando Ezequiel Puerta", email="armando.ezequiel.puerta@gmail.com" },
+]
+description = "A Python port with a few small tools and utils learned in my times as a Smalltalk developer"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = []
+
+[project.urls]
+"Homepage" = "https://github.com/EzequielPuerta/smalltools"
+"Bug Tracker" = "https://github.com/EzequielPuerta/smalltools/issues"
