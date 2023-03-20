@@ -60,6 +60,8 @@ from smalltools.behavior.suitable_class_finder import SuitableClassFinder
 SuitableClassFinder(Vehicle).suitable_for(vehicles[0]['type']) # Returns Car
 ```
 
+> Note: The `can_handle` method is what we called the `suitable_method` and its arguments are the `suitable_object`.
+
 But, what if the API response is not so easy?
 
 ```json
@@ -84,7 +86,7 @@ class Vehicle(ABC):
 
     @classmethod
     @abstractmethod
-    def can_handle(cls, raw_json):
+    def can_handle(cls, doors, motor):
         pass
 
 class Car(Vehicle):
@@ -93,26 +95,27 @@ class Car(Vehicle):
         super().__init__(*args)
 
     @classmethod
-    def can_handle(cls, raw_json):
-        return raw_json['doors'] > 0
+    def can_handle(cls, doors, motor):
+        return doors > 0 and motor > 0
 
 class Bike(Vehicle):
     @classmethod
-    def can_handle(cls, raw_json):
-        return raw_json['doors'] == 0 and raw_json['motor'] == 0
+    def can_handle(cls, doors, motor):
+        return doors == 0 and motor == 0
 
 class Motorkbike(Vehicle):
     @classmethod
-    def can_handle(cls, raw_json):
-        return raw_json['doors'] == 0 and raw_json['motor'] > 0
+    def can_handle(cls, doors, motor):
+        return doors == 0 and motor > 0
 ```
 
-Then we have to do the next:
+Check that you can pass multiple arguments to the `suitable_method`. So we have to do the next lines:
 
 ```python
 from smalltools.behavior.suitable_class_finder import SuitableClassFinder
 
-SuitableClassFinder(Vehicle).suitable_for(vehicles[0]) # Returns Car
+vehicle = vehicles[0]
+SuitableClassFinder(Vehicle).suitable_for(vehicle['doors'], vehicle['motor']) # Returns Car
 ```
 
 Okey, and if you have objects with different "shapes"?
@@ -126,6 +129,58 @@ vehicles = [
     ...
 ]
 ```
+
+Then, you can pass the entire `json` and process it:
+
+```python
+from abc import ABC, abstractmethod
+
+class Vehicle(ABC):
+    def __init__(self, brand, color):
+        self.brand = brand
+        self.color = color
+
+    @classmethod
+    @abstractmethod
+    def can_handle(cls, raw_json):
+        pass
+
+class Car(Vehicle):
+    def __init__(self, doors_amount, *args):
+        self.doors_amount = doors_amount
+        super().__init__(*args)
+
+    @classmethod
+    def can_handle(cls, raw_json):
+        return 'doors' in raw_json and raw_json['doors'] > 0
+
+class Bike(Vehicle):
+    @classmethod
+    def can_handle(cls, raw_json):
+        return 'doors' not in raw_json and 'motor' not in raw_json
+
+class Motorkbike(Vehicle):
+    @classmethod
+    def can_handle(cls, raw_json):
+        return 'doors' not in raw_json and 'motor' in raw_json and raw_json['motor'] > 0
+```
+
+As simple as that!
+
+```python
+from smalltools.behavior.suitable_class_finder import SuitableClassFinder
+
+SuitableClassFinder(Vehicle).suitable_for(vehicles[0]) # Returns Car
+```
+
+The sky is the limit!
+
+#### Final words
+
+1. The different `can_handle` cases should be disjoint. If there are many subclasses that suits to one case, it will raise an exception.
+2. Subclasses should cover all possible cases. If there is a case that doesn't match with any subclass, then an exception will be thrown.
+3. You can use a different method than `can_handle`. Just replace the desired method in the `suitable_method` argument of `suitable_for` function. This could be useful when you have a complex `suitable_object` and you want to be more explicit with the name of the method.
+4. Sometimes, it could be good to return a default class when no result is found (instead of raising an exception). You can do this with the `default_subclass` argument of `suitable_for` method. It's disabled by default, as mentioned at the second item.
 
 ---
 And thats it! for now...
