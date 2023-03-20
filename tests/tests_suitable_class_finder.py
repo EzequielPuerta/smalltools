@@ -16,14 +16,14 @@ class SuitableClassFinderTestCase(TestCase):
         self.assertTrue(is_concrete(Me))
 
     def test_concrete_subclasses(self):
-        self.assertSetEqual(set(concrete_subclasses(Grandfather)), set(Aunt, Cousin, Brother, Sister, Me))
-        self.assertSetEqual(set(concrete_subclasses(Aunt)), set())
-        self.assertSetEqual(set(concrete_subclasses(Uncle)), set(Cousin))
-        self.assertSetEqual(set(concrete_subclasses(Cousin)), set())
-        self.assertSetEqual(set(concrete_subclasses(Father)), set(Brother, Sister, Me))
-        self.assertSetEqual(set(concrete_subclasses(Brother)), set())
-        self.assertSetEqual(set(concrete_subclasses(Sister)), set())
-        self.assertSetEqual(set(concrete_subclasses(Me)), set())
+        self.assertSetEqual(set(concrete_subclasses(Grandfather, [])), set((Aunt, Cousin, Brother, Sister, Me)))
+        self.assertSetEqual(set(concrete_subclasses(Aunt, [])), set())
+        self.assertSetEqual(set(concrete_subclasses(Uncle, [])), set((Cousin,)))
+        self.assertSetEqual(set(concrete_subclasses(Cousin, [])), set())
+        self.assertSetEqual(set(concrete_subclasses(Father, [])), set((Brother, Sister, Me)))
+        self.assertSetEqual(set(concrete_subclasses(Brother, [])), set())
+        self.assertSetEqual(set(concrete_subclasses(Sister, [])), set())
+        self.assertSetEqual(set(concrete_subclasses(Me, [])), set())
 
     def test_can_handle(self):
         # ONLY concrete subclasses can handle the suitable object
@@ -39,8 +39,8 @@ class SuitableClassFinderTestCase(TestCase):
 
     def test_defaultSubclass(self):
         # You can define a default class
-        self.assertEqual(Nobody, SuitableClassFinder(Relative).suitable_for("Bob", defaultSubclass=Nobody))
+        self.assertEqual(Nobody, SuitableClassFinder(Relative).suitable_for("Bob", default_subclass=Nobody))
 
     def test_suitableMethod(self):
         # You can specify an explicit canHandle method (useful for multiple positional arguments)
-        self.assertEqual(Sister, SuitableClassFinder(Relative).suitable_for("Jenny", 14, suitableMethod='canHandleNameAndAge'))
+        self.assertEqual(Sister, SuitableClassFinder(Relative).suitable_for("Jenny", 14, suitable_method='can_handle_name_and_age'))

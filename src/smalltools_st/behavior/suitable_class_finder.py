@@ -1,7 +1,7 @@
 is_concrete = lambda subclass: len(subclass.__subclasses__()) == 0
 
 
-def concrete_subclasses(a_class, accumulator=[]):
+def concrete_subclasses(a_class, accumulator):
     """For this package, concrete class is any with no subclasses.
     
     Parameters:
@@ -12,7 +12,10 @@ def concrete_subclasses(a_class, accumulator=[]):
     - :accumulator: : List of concrete subclasses
     """
     for subclass in a_class.__subclasses__():
-        accumulator.append(subclass) if is_concrete(subclass) else concrete_subclasses(subclass, accumulator)
+        if is_concrete(subclass):
+            accumulator.append(subclass)
+        else:
+            concrete_subclasses(subclass, accumulator)
     return accumulator
 
 
@@ -50,7 +53,7 @@ class SuitableClassFinder():
         If it success, a unique subclass of the abstract class provided, which satisfies the :suitable_method:
         using the :suitable_object: as parameters.
         """
-        all_subclasses = concrete_subclasses(self.abstract_class)
+        all_subclasses = concrete_subclasses(self.abstract_class, [])
         filtered_subclasses = \
             [subclass for subclass in all_subclasses 
                 if (getattr(subclass, suitable_method)(*suitable_object))]
