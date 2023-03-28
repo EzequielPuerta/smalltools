@@ -10,12 +10,13 @@ jobs:
             sudo add-apt-repository universe -y
             sudo apt-get update
             sudo apt install -y python3-pip
-            python3 -m pip3 install virtualenv
-            python3 -m pip3 install pytest
-            python3 -m pip3 install --upgrade build
+            python3 -m pip install virtualenv
+            python3 -m pip install pytest
+            python3 -m pip install --upgrade build
             python3 -m build
-            pip3 install dist/smalltools_st-0.0.4-py3-none-any.whl
+            pip install dist/smalltools_st-0.0.4-py3-none-any.whl
       - run:
+          name: Build package and run tests
           command: | # Run test suite
             pytest
   test_pypi_publish:
@@ -24,14 +25,15 @@ jobs:
     steps:
       - checkout # checkout source code to working directory
       - run:
+          name: Build package and publish to TestPyPI
           command: | # create whl, install twine and publish to Test PyPI
             sudo add-apt-repository universe -y
             sudo apt-get update
             sudo apt install -y python3-pip
-            python3 -m pip3 install virtualenv
-            python3 -m pip3 install --upgrade build
+            python3 -m pip install virtualenv
+            python3 -m pip install --upgrade build
             python3 -m build
-            python3 -m pip3 install --upgrade twine
+            python3 -m pip install --upgrade twine
             python3 -m twine upload --repository testpypi dist/*
   pypi_publish:
     docker:
@@ -39,14 +41,15 @@ jobs:
     steps:
       - checkout # checkout source code to working directory
       - run:
+          name: Build package and publish to PyPI
           command: | # create whl, install twine and publish to PyPI
             sudo add-apt-repository universe -y
             sudo apt-get update
             sudo apt install -y python3-pip
-            python3 -m pip3 install virtualenv
-            python3 -m pip3 install --upgrade build
+            python3 -m pip install virtualenv
+            python3 -m pip install --upgrade build
             python3 -m build
-            python3 -m pip3 install --upgrade twine
+            python3 -m pip install --upgrade twine
             python3 -m twine upload dist/*
 workflows:
   build_test_publish:
