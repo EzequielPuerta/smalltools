@@ -9,22 +9,22 @@ jobs:
     steps:
       - checkout # checkout source code to working directory
       - run:
-          name: Build package
+          name: Build package and prepare environment
           command: |
+            mkdir test-results
             sudo add-apt-repository universe -y
             sudo apt-get update
             sudo apt install -y python3-pip
-            python3 -m pip install virtualenv
-            python3 -m pip install --upgrade build
-            python3 -m build
-            pip install dist/smalltools_st-0.0.13-py3-none-any.whl
-      - run:
-          name: Run tests and code coverage
-          command: |
-            mkdir test-results
             python3 -m pip install pytest
             python3 -m pip install codecov
             python3 -m pip install pytest-cov
+            python3 -m pip install virtualenv
+            python3 -m pip install --upgrade build
+            python3 -m build
+            pip install dist/smalltools_st-0.0.13-py3-none-any.whl            
+      - run:
+          name: Run tests and code coverage
+          command: |
             pytest --junitxml=test-results/junit.xml --cov=./ --cov-report=xml
             codecov
             curl -Os https://uploader.codecov.io/latest/linux/codecov
