@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.0.6] - 2022-03-28
+
+### Added
+
+- Custom environment variables for CircleCI's development branch.
+- CircleCI, PyPI and Github budgets in README file.
+- Github's Tag and Release automated with CircleCI Orb.
+
 ## [0.0.5] - 2022-03-28
 
 ### Added
