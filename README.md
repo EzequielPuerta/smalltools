@@ -1,5 +1,11 @@
 # smalltools_st
+
 A Python port with a few small tools, snippets and utils (with a lot of WIP) learned in my times as a Smalltalk developer and which I miss a lot.
+
+![PyPI](https://img.shields.io/pypi/v/smalltools_st?color=blue&label=pypi&logo=python&logoColor=white) 
+![GitHub](https://img.shields.io/github/license/EzequielPuerta/smalltools) 
+[![EzequielPuerta](https://circleci.com/gh/EzequielPuerta/smalltools.svg?style=shield)](https://circleci.com/gh/EzequielPuerta/smalltools)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/EzequielPuerta/smalltools?display_name=tag&logo=github&logoColor=white)
 
 ---
 ## Behavior:

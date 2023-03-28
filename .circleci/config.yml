@@ -1,4 +1,7 @@
 version: 2.1
+orbs:
+  node: circleci/node@4.3
+  gh: circleci/github-cli@1.0
 jobs:
   build_test:
     docker:
@@ -15,7 +18,7 @@ jobs:
             python3 -m pip install pytest
             python3 -m pip install --upgrade build
             python3 -m build
-            pip install dist/smalltools_st-0.0.5-py3-none-any.whl
+            pip install dist/smalltools_st-0.0.6-py3-none-any.whl
       - run:
           name: Run tests
           command: | # Run test suite
@@ -35,6 +38,8 @@ jobs:
             python3 -m pip install --upgrade build
             python3 -m build
             python3 -m pip install --upgrade twine
+            export TWINE_USERNAME=$TEST_TWINE_USERNAME
+            export TWINE_PASSWORD=$TEST_TWINE_PASSWORD
             python3 -m twine upload --repository testpypi dist/*
   pypi_publish:
     docker:
@@ -62,10 +67,22 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - development
       - pypi_publish:
           requires:
             - build_test
+          filters:
+            branches:
+              only:
+                - main
+      - gh/release:
+          notes-file: CHANGELOG.md
+          tag: 0.0.6
+          title: "Added: Automation with CircleCI its here!"
+          requires:
+            - pypi_publish
+          context:
+            - GITHUB_CREDENTIALS
           filters:
             branches:
               only:
