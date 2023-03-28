@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "smalltools_st"
-version = "0.0.12"
+version = "0.1.0"
 authors = [
   { name="Armando Ezequiel Puerta", email="armando.ezequiel.puerta@gmail.com" },
 ]
@@ -12,9 +12,12 @@ description = "A Python port with a few small tools, snippets and utils (with a 
 readme = "README.md"
 requires-python = ">=3.7"
 classifiers = [
+    "Development Status :: 5 - Production/Stable",
     "Programming Language :: Python :: 3",
+    "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
+    "Topic :: Software Development"
 ]
 dependencies = []
 

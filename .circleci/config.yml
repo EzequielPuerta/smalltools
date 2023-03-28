@@ -9,20 +9,29 @@ jobs:
     steps:
       - checkout # checkout source code to working directory
       - run:
-          name: Build package
-          command: | # create whl and use pipenv to install dependencies
+          name: Build package and prepare environment
+          command: |
+            mkdir test-results
             sudo add-apt-repository universe -y
             sudo apt-get update
             sudo apt install -y python3-pip
-            python3 -m pip install virtualenv
             python3 -m pip install pytest
+            python3 -m pip install codecov
+            python3 -m pip install pytest-cov
+            python3 -m pip install virtualenv
             python3 -m pip install --upgrade build
             python3 -m build
-            pip install dist/smalltools_st-0.0.12-py3-none-any.whl
+            pip install dist/smalltools_st-0.1.0-py3-none-any.whl            
       - run:
-          name: Run tests
-          command: | # Run test suite
-            pytest
+          name: Run tests and code coverage
+          command: |
+            pytest --junitxml=test-results/junit.xml --cov=./ --cov-report=xml
+            codecov
+            curl -Os https://uploader.codecov.io/latest/linux/codecov
+            chmod +x codecov
+            ./codecov
+      - store_test_results:
+          path: test-results
   test_pypi_publish:
     docker:
       - image: cimg/python:3.10.2
@@ -68,9 +77,9 @@ jobs:
           command: |
             export GITHUB_HOSTNAME="github.com"
             set -- "$@" --notes-file "./CHANGELOG.md"
-            set -- "$@" --title "Added: Full automation with CircleCI its here!"
+            set -- "$@" --title "smalltools v0.1.0"
             set -- "$@" --repo "$(git config --get remote.origin.url)"
-            gh release create "0.0.12" "$@"
+            gh release create "0.1.0" "$@"
 workflows:
   build_test_publish:
     jobs:
