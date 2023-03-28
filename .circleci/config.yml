@@ -18,7 +18,7 @@ jobs:
             python3 -m pip install pytest
             python3 -m pip install --upgrade build
             python3 -m build
-            pip install dist/smalltools_st-0.0.8-py3-none-any.whl
+            pip install dist/smalltools_st-0.0.9-py3-none-any.whl
       - run:
           name: Run tests
           command: | # Run test suite
@@ -65,6 +65,7 @@ jobs:
             fingerprints:
               - "a2:dc:ef:ef:f7:56:9f:af:ad:86:68:83:f1:0e:e7:9d"
       - gh/setup
+      - gh/clone
       - run:
           name: "Creating a GitHub Release"
           command: |
@@ -72,7 +73,7 @@ jobs:
             set -- "$@" --notes-file "./CHANGELOG.md"
             set -- "$@" --title "Added: Full automation with CircleCI its here!"
             set -- "$@" --repo "$(git config --get remote.origin.url)"
-            gh release create "0.0.8" "$@"
+            gh release create "0.0.9" "$@"
 workflows:
   build_test_publish:
     jobs:
