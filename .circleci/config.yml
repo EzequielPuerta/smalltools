@@ -2,6 +2,7 @@ version: 2.1
 orbs:
   node: circleci/node@4.3
   gh: circleci/github-cli@1.0
+  codecov: codecov/codecov@3.2.4
 jobs:
   build_test:
     docker:
@@ -18,7 +19,7 @@ jobs:
             python3 -m pip install pytest
             python3 -m pip install --upgrade build
             python3 -m build
-            pip install dist/smalltools_st-0.0.12-py3-none-any.whl
+            pip install dist/smalltools_st-0.0.13-py3-none-any.whl
       - run:
           name: Run tests
           command: | # Run test suite
@@ -68,13 +69,19 @@ jobs:
           command: |
             export GITHUB_HOSTNAME="github.com"
             set -- "$@" --notes-file "./CHANGELOG.md"
-            set -- "$@" --title "Added: Full automation with CircleCI its here!"
+            set -- "$@" --title "smalltools v0.0.13"
             set -- "$@" --repo "$(git config --get remote.origin.url)"
-            gh release create "0.0.12" "$@"
+            gh release create "0.0.13" "$@"
 workflows:
   build_test_publish:
     jobs:
       - build_test
+      - checkout:
+          requires:
+            - build_test
+      - codecov/upload:
+          requires:
+            - checkout
       - test_pypi_publish:
           requires:
             - build_test
