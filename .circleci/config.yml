@@ -2,14 +2,18 @@ version: 2.1
 orbs:
   node: circleci/node@4.3
   gh: circleci/github-cli@1.0
-  codecov: codecov/codecov@3.2.4
 jobs:
   build_test:
     docker:
       - image: cimg/python:3.10.2
     steps:
       - checkout # checkout source code to working directory
-      - codecov/upload
+      - run:
+          name: Code coverage
+          command: |
+            curl -Os https://uploader.codecov.io/latest/linux/codecov
+            chmod +x codecov
+            ./codecov
       - run:
           name: Build package
           command: | # create whl and use pipenv to install dependencies
