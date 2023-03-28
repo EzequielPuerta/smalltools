@@ -18,7 +18,7 @@ jobs:
             python3 -m pip install pytest
             python3 -m pip install --upgrade build
             python3 -m build
-            pip install dist/smalltools_st-0.0.10-py3-none-any.whl
+            pip install dist/smalltools_st-0.0.11-py3-none-any.whl
       - run:
           name: Run tests
           command: | # Run test suite
@@ -63,7 +63,6 @@ jobs:
     steps:
       - add_ssh_keys:
             fingerprints:
-              - "a2:dc:ef:ef:f7:56:9f:af:ad:86:68:83:f1:0e:e7:9d"
               - "SHA256:uNiVztksCsDhcc0u9e8BujQXVUpKZIDTMczCvj3tD2s"
       - gh/setup
       - gh/clone
@@ -74,7 +73,7 @@ jobs:
             set -- "$@" --notes-file "./CHANGELOG.md"
             set -- "$@" --title "Added: Full automation with CircleCI its here!"
             set -- "$@" --repo "$(git config --get remote.origin.url)"
-            gh release create "0.0.10" "$@"
+            gh release create "0.0.11" "$@"
 workflows:
   build_test_publish:
     jobs:
