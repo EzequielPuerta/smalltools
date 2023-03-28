@@ -18,7 +18,7 @@ jobs:
             python3 -m pip install pytest
             python3 -m pip install --upgrade build
             python3 -m build
-            pip install dist/smalltools_st-0.0.11-py3-none-any.whl
+            pip install dist/smalltools_st-0.0.12-py3-none-any.whl
       - run:
           name: Run tests
           command: | # Run test suite
@@ -61,11 +61,8 @@ jobs:
     docker:
       - image: 'cimg/base:stable'
     steps:
-      - add_ssh_keys:
-            fingerprints:
-              - "SHA256:uNiVztksCsDhcc0u9e8BujQXVUpKZIDTMczCvj3tD2s"
+      - checkout # checkout source code to working directory
       - gh/setup
-      - gh/clone
       - run:
           name: "Creating a GitHub Release"
           command: |
@@ -73,7 +70,7 @@ jobs:
             set -- "$@" --notes-file "./CHANGELOG.md"
             set -- "$@" --title "Added: Full automation with CircleCI its here!"
             set -- "$@" --repo "$(git config --get remote.origin.url)"
-            gh release create "0.0.11" "$@"
+            gh release create "0.0.12" "$@"
 workflows:
   build_test_publish:
     jobs:
