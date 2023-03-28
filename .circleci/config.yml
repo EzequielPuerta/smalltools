@@ -21,7 +21,7 @@ jobs:
             python3 -m pip install virtualenv
             python3 -m pip install --upgrade build
             python3 -m build
-            pip install dist/smalltools_st-0.0.13-py3-none-any.whl            
+            pip install dist/smalltools_st-0.1.0-py3-none-any.whl            
       - run:
           name: Run tests and code coverage
           command: |
@@ -77,9 +77,9 @@ jobs:
           command: |
             export GITHUB_HOSTNAME="github.com"
             set -- "$@" --notes-file "./CHANGELOG.md"
-            set -- "$@" --title "smalltools v0.0.13"
+            set -- "$@" --title "smalltools v0.1.0"
             set -- "$@" --repo "$(git config --get remote.origin.url)"
-            gh release create "0.0.13" "$@"
+            gh release create "0.1.0" "$@"
 workflows:
   build_test_publish:
     jobs:
