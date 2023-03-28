@@ -9,6 +9,7 @@ jobs:
       - image: cimg/python:3.10.2
     steps:
       - checkout # checkout source code to working directory
+      - codecov/upload
       - run:
           name: Build package
           command: | # create whl and use pipenv to install dependencies
@@ -76,12 +77,6 @@ workflows:
   build_test_publish:
     jobs:
       - build_test
-      - checkout:
-          requires:
-            - build_test
-      - codecov/upload:
-          requires:
-            - checkout
       - test_pypi_publish:
           requires:
             - build_test
