@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - Tests now follows Pytest style.
+- JSON examples format in README file.
+- new version in config.yml
 
 ## [0.0.4] - 2022-03-20
 

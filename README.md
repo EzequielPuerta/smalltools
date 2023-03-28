@@ -34,7 +34,7 @@ class Motorbike(Vehicle):
 
 And we are consuming some silly API. The response could be something like:
 
-```json
+```python
 vehicles = [
     {'type':'car', 'doors':5, 'motor':1400, 'brand':'renault', 'color':'red'},
     {'type':'bike', 'doors':0, 'motor':0, 'brand':'trek', 'color':'orange'},
@@ -64,7 +64,7 @@ SuitableClassFinder(Vehicle).suitable_for(vehicles[0]['type']) # Returns Car
 
 But, what if the API response is not so easy?
 
-```json
+```python
 vehicles = [
     {'doors':5, 'motor':1400, 'brand':'renault', 'color':'red'},
     {'doors':0, 'motor':0, 'brand':'trek', 'color':'orange'},
@@ -120,7 +120,7 @@ SuitableClassFinder(Vehicle).suitable_for(vehicle['doors'], vehicle['motor']) # 
 
 Okey, and if you have objects with different "shapes"?
 
-```json
+```python
 vehicles = [
     {'doors':5, 'motor':1400, 'brand':'renault', 'color':'red'},
     {'brand':'trek', 'color':'orange'},

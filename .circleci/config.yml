@@ -15,7 +15,7 @@ jobs:
             python3 -m pip install pytest
             python3 -m pip install --upgrade build
             python3 -m build
-            pip install dist/smalltools_st-0.0.4-py3-none-any.whl
+            pip install dist/smalltools_st-0.0.5-py3-none-any.whl
       - run:
           name: Run tests
           command: | # Run test suite
