@@ -6,6 +6,7 @@ jobs:
     steps:
       - checkout # checkout source code to working directory
       - run:
+          name: Build package
           command: | # create whl and use pipenv to install dependencies
             sudo add-apt-repository universe -y
             sudo apt-get update
@@ -16,7 +17,7 @@ jobs:
             python3 -m build
             pip install dist/smalltools_st-0.0.4-py3-none-any.whl
       - run:
-          name: Build package and run tests
+          name: Run tests
           command: | # Run test suite
             pytest
   test_pypi_publish:
