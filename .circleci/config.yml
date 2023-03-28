@@ -18,7 +18,7 @@ jobs:
             python3 -m pip install pytest
             python3 -m pip install --upgrade build
             python3 -m build
-            pip install dist/smalltools_st-0.0.7-py3-none-any.whl
+            pip install dist/smalltools_st-0.0.8-py3-none-any.whl
       - run:
           name: Run tests
           command: | # Run test suite
@@ -57,6 +57,22 @@ jobs:
             python3 -m build
             python3 -m pip install --upgrade twine
             python3 -m twine upload dist/*
+  gh_release:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - add_ssh_keys:
+            fingerprints:
+              - "a2:dc:ef:ef:f7:56:9f:af:ad:86:68:83:f1:0e:e7:9d"
+      - gh/setup
+      - run:
+          name: "Creating a GitHub Release"
+          command: |
+            export GITHUB_HOSTNAME="github.com"
+            set -- "$@" --notes-file "./CHANGELOG.md"
+            set -- "$@" --title "Added: Full automation with CircleCI its here!"
+            set -- "$@" --repo "$(git config --get remote.origin.url)"
+            gh release create "0.0.8" "$@"
 workflows:
   build_test_publish:
     jobs:
@@ -75,10 +91,7 @@ workflows:
             branches:
               only:
                 - main
-      - gh/release:
-          notes-file: CHANGELOG.md
-          tag: 0.0.7
-          title: "Added: Automation with CircleCI its here!"
+      - gh_release:
           requires:
             - pypi_publish
           context:
