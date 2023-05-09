@@ -1,26 +1,33 @@
-[build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
-
-[project]
-name = "smalltools_st"
-version = "0.1.1"
-authors = [
-  { name="Armando Ezequiel Puerta", email="armando.ezequiel.puerta@gmail.com" },
-]
+[tool.poetry]
+name = "smalltools-st"
+version = "0.2.0"
 description = "A Python port with a few small tools, snippets and utils (with a lot of WIP) learned in my times as a Smalltalk developer and which I miss a lot."
+authors = ["Armando Ezequiel Puerta <armando.ezequiel.puerta@gmail.com>"]
+license = "MIT License"
 readme = "README.md"
-requires-python = ">=3.7"
+packages = [{include = "smalltools_st"}]
+include = [{ path = "smalltools_st" }]
+exclude = ["docs", "tests"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Programming Language :: Python :: 3",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
-    "Topic :: Software Development"
-]
-dependencies = []
+    "Topic :: Software Development"]
+homepage = "https://github.com/EzequielPuerta/smalltools"
+repository = "https://github.com/EzequielPuerta/smalltools"
+documentation = "https://github.com/EzequielPuerta/smalltools"
 
-[project.urls]
-"Homepage" = "https://github.com/EzequielPuerta/smalltools"
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.3.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.urls]
 "Bug Tracker" = "https://github.com/EzequielPuerta/smalltools/issues"

@@ -19,13 +19,11 @@ jobs:
             python3 -m pip install codecov
             python3 -m pip install pytest-cov
             python3 -m pip install virtualenv
-            python3 -m pip install --upgrade build
-            python3 -m build
-            pip install dist/smalltools_st-0.1.1-py3-none-any.whl
+            curl -sSL https://install.python-poetry.org | python3 -
       - run:
           name: Run tests and code coverage
           command: |
-            pytest --junitxml=test-results/junit.xml --cov=./ --cov-report=xml
+            poetry run pytest --junitxml=test-results/junit.xml --cov=./ --cov-report=xml
             codecov
             curl -Os https://uploader.codecov.io/latest/linux/codecov
             chmod +x codecov
@@ -77,9 +75,9 @@ jobs:
           command: |
             export GITHUB_HOSTNAME="github.com"
             set -- "$@" --notes-file "./CHANGELOG.md"
-            set -- "$@" --title "smalltools v0.1.1"
+            set -- "$@" --title "smalltools v0.2.0"
             set -- "$@" --repo "$(git config --get remote.origin.url)"
-            gh release create "0.1.1" "$@"
+            gh release create "0.2.0" "$@"
 workflows:
   build_test_publish:
     jobs:
@@ -90,7 +88,7 @@ workflows:
           filters:
             branches:
               only:
-                - development
+                - main
       - pypi_publish:
           requires:
             - build_test
