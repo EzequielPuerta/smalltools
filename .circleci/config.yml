@@ -21,6 +21,11 @@ jobs:
             python3 -m pip install virtualenv
             curl -sSL https://install.python-poetry.org | python3 -
             poetry install
+          environment:
+            LC_ALL: C.UTF-8
+            LANG: C.UTF-8
+            LANGUAGE: C.UTF-8
+            
       - run:
           name: Run tests
           command: |
