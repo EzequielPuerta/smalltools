@@ -20,11 +20,14 @@ jobs:
             python3 -m pip install pytest-cov
             python3 -m pip install virtualenv
             curl -sSL https://install.python-poetry.org | python3 -
-      - run:
-          name: Run tests and code coverage
-          command: |
             poetry install
+      - run:
+          name: Run tests
+          command: |
             poetry run pytest --junitxml=test-results/junit.xml --cov=./ --cov-report=xml
+      - run:
+          name: Run code coverage
+          command: |
             codecov
             curl -Os https://uploader.codecov.io/latest/linux/codecov
             chmod +x codecov
