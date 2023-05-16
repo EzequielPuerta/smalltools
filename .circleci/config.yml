@@ -21,9 +21,9 @@ jobs:
             python3 -m pip install virtualenv
             curl -sSL https://install.python-poetry.org | python3 -
             ls -lan
-            poetry install
-            poetry show
-            poetry --version
+            poetry install -vvv
+            poetry show -vvv
+            poetry --version -vvv
             
       - run:
           name: Run tests
