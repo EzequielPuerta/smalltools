@@ -161,3 +161,4 @@ cython_debug/
 
 .fuse_hidden*
 .vscode/
+.test-results/

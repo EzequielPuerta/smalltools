@@ -15,8 +15,6 @@ jobs:
             sudo add-apt-repository universe -y
             sudo apt-get update
             sudo apt install -y python3-pip
-            python3 -m pip install codecov
-            python3 -m pip install pytest-cov
             python3 -m pip install virtualenv
             curl -sSL https://install.python-poetry.org | python3 -
       - run:
