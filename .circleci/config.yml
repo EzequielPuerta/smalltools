@@ -23,6 +23,7 @@ jobs:
       - run:
           name: Run tests
           command: |
+            python3 --version
             poetry install -vvv
             poetry run pytest --junitxml=test-results/junit.xml --cov=./ --cov-report=xml
       - run:
