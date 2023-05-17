@@ -20,11 +20,7 @@ jobs:
             python3 -m pip install pytest-cov
             python3 -m pip install virtualenv
             curl -sSL https://install.python-poetry.org | python3 -
-            ls -lan
-            poetry install -vvv
-            poetry show -vvv
-            poetry --version -vvv
-            
+            ls -lan            
       - run:
           name: Run tests
           command: |
