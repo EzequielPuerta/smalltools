@@ -163,6 +163,96 @@ def test_dict_with_always_cascading_and_attribute_not_returning_none_keeps_casca
     assert cascade.yourself == {1:1, 2:2, 3:3, 4:4}
 
 ############################################################
+# Sets
+############################################################
+def test_set_empty():
+    cascade = Cascade({})
+    assert isinstance(cascade, Cascade)
+    assert cascade.yourself == {}
+
+def test_set_with_one_update():
+    cascade = Cascade(set()).update([1])
+    assert isinstance(cascade, Cascade)
+    assert cascade.yourself == {1}
+
+def test_set_with_two_updates():
+    cascade = Cascade(set()).update([1]).update([2])
+    assert isinstance(cascade, Cascade)
+    assert cascade.yourself == {1, 2}
+
+def test_set_with_three_updates():
+    cascade = Cascade(set()).update([1]).update([2]).update([3])
+    assert isinstance(cascade, Cascade)
+    assert cascade.yourself == {1, 2, 3}
+
+def test_set_without_always_cascading_and_attribute_returning_none_keeps_cascading():
+    assert {}.clear() is None
+    cascade = Cascade(set()).update([1]).update([2]).update([3]).clear()
+    assert isinstance(cascade, Cascade)
+    assert cascade.yourself == set()
+    cascade = cascade.update([4])
+    assert isinstance(cascade, Cascade)
+    assert cascade.yourself == {4}
+
+def test_set_with_always_cascading_and_attribute_returning_none_keeps_cascading():
+    assert {}.clear() is None
+    cascade = Cascade(set(), always=True).update([1]).update([2]).update([3]).clear()
+    assert isinstance(cascade, Cascade)
+    assert cascade.yourself == set()
+    cascade = cascade.update([4])
+    assert isinstance(cascade, Cascade)
+    assert cascade.yourself == {4}
+
+def test_set_without_always_cascading_and_attribute_not_returning_none_doesnt_keep_cascading():
+    assert {1, 2, 3}.pop() is not None
+    cascade = Cascade(set()).update([1]).update([2]).update([3]).pop()
+    assert isinstance(cascade, int)
+    assert cascade == 1
+    with pytest.raises(AttributeError):
+        cascade.update(4)
+
+def test_set_with_always_cascading_and_attribute_not_returning_none_keeps_cascading():
+    assert {1, 2, 3}.pop() is not None
+    cascade = Cascade(set(), always=True).update([1]).update([2]).update([3]).pop()
+    assert isinstance(cascade, Cascade)
+    assert cascade.yourself == {2, 3}
+    cascade = cascade.update([4])
+    assert isinstance(cascade, Cascade)
+    assert cascade.yourself == {2, 3, 4}
+
+############################################################
+# Tuples
+############################################################
+def test_tuple_empty():
+    cascade = Cascade(())
+    assert isinstance(cascade, Cascade)
+    assert cascade.yourself == ()
+
+def test_tuple_with_one_add():
+    cascade = Cascade(()).__add__((1,))
+    assert isinstance(cascade, Cascade)
+    assert cascade.yourself == (1,)
+
+def test_tuple_with_two_adds():
+    cascade = Cascade(()).__add__((1,)).__add__((2,))
+    assert isinstance(cascade, Cascade)
+    assert cascade.yourself == (1, 2)
+
+def test_tuple_with_three_adds():
+    cascade = Cascade(()).__add__((1,)).__add__((2,)).__add__((3,))
+    assert isinstance(cascade, Cascade)
+    assert cascade.yourself == (1, 2, 3)
+
+def test_tuple_will_always_use_cascading():
+    assert (1, 2, 3).index(2) == 1
+    cascade = Cascade(()).__add__((1,)).__add__((2,)).index(2)
+    assert isinstance(cascade, Cascade)
+    assert cascade.yourself == 1
+    cascade = Cascade((), always=True).__add__((1,)).__add__((2,)).index(2)
+    assert isinstance(cascade, Cascade)
+    assert cascade.yourself == 1
+
+############################################################
 # Bool
 ############################################################
 def test_bool():
