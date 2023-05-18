@@ -4,14 +4,6 @@ from smalltools_st.behavior.suitable_class_finder import SuitableClassFinder
 from typing import Tuple, Union
 
 
-try:
-    callable
-except NameError:
-    # Python 3.0 and 3.1 does not include this built-in function
-    def callable(obj):
-        return hasattr(type(obj), '__call__')
-
-
 class ReplaceStrategy(ABC):
     """It models the replacement behavior of a Cascade instance"""
 
