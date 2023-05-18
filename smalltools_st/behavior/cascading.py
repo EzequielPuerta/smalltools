@@ -65,8 +65,11 @@ class Cascade():
     def __init__(self, content: object, always: bool = False, replace_strategy: Union[None, ReplaceStrategy] = None):
         self.yourself = content
         self.always = always
-        self.strategy = (replace_strategy if replace_strategy is not None else \
+        self.strategy = (replace_strategy if replace_strategy is not None else
             SuitableClassFinder(ReplaceStrategy).suitable_for(content, default_subclass=NoReplace))(self)
+
+    def __str__(self) -> str:
+        return str(self.yourself)
 
     def __repr__(self) -> str:
         return repr(self.yourself)
