@@ -1,7 +1,10 @@
+from typing import List, Union
+
+
 is_concrete = lambda subclass: len(subclass.__subclasses__()) == 0
 
 
-def concrete_subclasses(a_class, accumulator):
+def concrete_subclasses(a_class: type, accumulator: List[type]) -> List[type]:
     """For this package, concrete class is any with no subclasses.
     
     Parameters:
@@ -27,7 +30,7 @@ class SuitableClassFinder():
     """
 
 
-    def __init__(self, abstract_class):
+    def __init__(self, abstract_class: type) -> None:
         """Initialization of the subclass finder.
 
         Parameter:
@@ -37,7 +40,7 @@ class SuitableClassFinder():
         super().__init__()
 
 
-    def suitable_for(self, *suitable_object, default_subclass=None, suitable_method='can_handle'):
+    def suitable_for(self, *suitable_object, default_subclass: Union[None, type] = None, suitable_method: str = 'can_handle') -> type:
         """Finds the concrete subclass that satisfies the conditions modeled 
         with the :suitable_object: and the :suitable_method:
 

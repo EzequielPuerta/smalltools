@@ -1,6 +1,6 @@
 import pytest
 from smalltools_st.behavior.suitable_class_finder import is_concrete, concrete_subclasses, SuitableClassFinder
-from .utils import *
+from .utils.suitable_class_finder import *
 
 def test_is_concrete():
     assert is_concrete(Grandfather) is False
