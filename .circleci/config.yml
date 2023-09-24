@@ -75,9 +75,9 @@ jobs:
           command: |
             export GITHUB_HOSTNAME="github.com"
             set -- "$@" --notes-file "./CHANGELOG.md"
-            set -- "$@" --title "smalltools v0.2.0"
+            set -- "$@" --title "smalltools v0.2.1"
             set -- "$@" --repo "$(git config --get remote.origin.url)"
-            gh release create "0.2.0" "$@"
+            gh release create "0.2.1" "$@"
 workflows:
   build_test_publish:
     jobs:
@@ -91,7 +91,7 @@ workflows:
                 - main
       - pypi_publish:
           requires:
-            - build_test
+            - test_pypi_publish
           filters:
             branches:
               only:
