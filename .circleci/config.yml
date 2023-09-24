@@ -75,9 +75,9 @@ jobs:
           command: |
             export GITHUB_HOSTNAME="github.com"
             set -- "$@" --notes-file "./CHANGELOG.md"
-            set -- "$@" --title "smalltools v0.2.1"
+            set -- "$@" --title "smalltools v0.2.2"
             set -- "$@" --repo "$(git config --get remote.origin.url)"
-            gh release create "0.2.1" "$@"
+            gh release create "0.2.2" "$@"
 workflows:
   build_test_publish:
     jobs:
